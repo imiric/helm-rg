@@ -63,7 +63,7 @@
 
 (defun helm-rg-test--assert-current-line (line)
   "Assert the contents of the current line, either in the `helm-rg' buffer, or in a matched file."
-  (let ((cur-line (buffer-substring (point-at-bol) (point-at-eol))))
+  (let ((cur-line (buffer-substring (line-beginning-position) (line-end-position))))
     (should (equal cur-line line))))
 
 (helm-rg-test--define-interactive-test test-helm-rg/helm-resume

@@ -1463,7 +1463,7 @@ TODO: add ert testing for this function!"
 
 (defun helm-rg--current-line-contents ()
   "`helm-current-line-contents' doesn't keep text properties."
-  (buffer-substring (point-at-bol) (point-at-eol)))
+  (buffer-substring (line-beginning-position) (line-end-position)))
 
 (cl-defun helm-rg--nullable-states-different (a b &key (cmp #'eq))
   "Compare A and B respecting nullability using CMP.
