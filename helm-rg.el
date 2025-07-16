@@ -1069,7 +1069,7 @@ any results."
                   (helm-rg--make-face 'helm-rg-error-message "no results for input")
                   (helm-rg--make-face 'font-lock-string-face input-repr)
                   (helm-rg--make-face 'helm-rg-error-message err-msg))))
-    (helm-attrset 'name helm-src-name)
+    (helm-set-attr 'name helm-src-name)
     dummy-proc))
 
 (defun helm-rg--validate-or-make-dummy-process (input)
@@ -1137,7 +1137,7 @@ functions."
                      :noquery t))
          (helm-src-name
           (format "argv: %s" (helm-rg--join " " argv))))
-    (helm-attrset 'name helm-src-name)
+    (helm-set-attr 'name helm-src-name)
     (set-process-query-on-exit-flag real-proc nil)
     real-proc))
 
