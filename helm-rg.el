@@ -673,8 +673,8 @@ particular ripgrep option and set of options."
   "Specification for starting directory to invoke ripgrep in.
 Used in `helm-rg--interpret-starting-dir'. Possible values:
 
-'default => Use `default-directory'.
-'git-root => Use \"git rev-parse --show-toplevel\" (see
+\='default => Use `default-directory'.
+\='git-root => Use \"git rev-parse --show-toplevel\" (see
              `helm-rg-git-executable').
 <string> => Use the directory at path <string>."
   :type '(choice symbol string)
