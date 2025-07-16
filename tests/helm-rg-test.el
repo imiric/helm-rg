@@ -11,6 +11,8 @@
 (require 'cl-lib)
 (require 'ert)
 
+(defvar helm-rg-show-command-line)
+
 (defconst helm-rg-test--cwd
   (-> (or load-file-name buffer-file-name) (file-name-directory) (expand-file-name)))
 
@@ -101,3 +103,31 @@
         (helm-rg-test--assert-current-line match-line-in-file)))
     (helm-rg-test--in-test-dir
      (helm-rg-from-isearch))))
+
+(helm-rg-test--define-interactive-test test-helm-rg/show-command-line-option
+  "Test that the command line display option works correctly."
+  (let ((original-value helm-rg-show-command-line)
+        (source-name-1 nil)
+        (source-name-2 nil))
+    (unwind-protect
+        (progn
+          ;; Test with command line hidden
+          (setq helm-rg-show-command-line nil)
+          (helm-rg-test--delayed-do
+            (progn
+              (setq source-name-1 (assoc-default 'name (helm-get-current-source)))
+              (helm-keyboard-quit)))
+          (helm-rg-test--invoke-in-test-dir "test")
+
+          (should (string-match-p "search results" source-name-1))
+
+          ;; Test with command line shown
+          (setq helm-rg-show-command-line t)
+          (helm-rg-test--delayed-do
+            (progn
+              (setq source-name-2 (assoc-default 'name (helm-get-current-source)))
+              (helm-keyboard-quit)))
+          (helm-rg-test--invoke-in-test-dir "test")
+
+          (should (string-match-p "argv:" source-name-2)))
+      (setq helm-rg-show-command-line original-value))))

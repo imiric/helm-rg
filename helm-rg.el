@@ -658,6 +658,13 @@ Set to the empty string to match every file."
   :safe #'helm-rg--always-safe-local
   :group 'helm-rg)
 
+(defcustom helm-rg-show-command-line nil
+  "Whether to show the full ripgrep command line in the Helm header.
+When nil, only shows basic information. Set to t to show the full command for debugging."
+  :type 'boolean
+  :safe #'helm-rg--always-safe-local
+  :group 'helm-rg)
+
 (defcustom helm-rg-default-extra-args nil
   "Extra arguments passed to ripgrep on the command line.
 Note that default filename globbing and case sensitivity can be set with their own defcustoms, and
@@ -1136,7 +1143,9 @@ functions."
                      :command argv
                      :noquery t))
          (helm-src-name
-          (format "argv: %s" (helm-rg--join " " argv))))
+          (if helm-rg-show-command-line
+              (format "argv: %s" (helm-rg--join " " argv))
+            "search results")))
     (helm-set-attr 'name helm-src-name)
     (set-process-query-on-exit-flag real-proc nil)
     real-proc))
