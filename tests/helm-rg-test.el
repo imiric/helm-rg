@@ -70,7 +70,7 @@
   "Test that the right file is visited when resuming a `helm-rg' session with `helm-resume'."
   (helm-rg-test--delayed-do
    (helm-keyboard-quit))
-  (with-helm-quittable
+  (with-local-quit
     (helm-rg-test--find-gpl))
   (let ((helm-rg-buf helm-last-buffer))
     (sit-for helm-rg-test--time-step)
